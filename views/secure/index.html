@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Logged In</title>
+</head>
+
+<body>
+    <div class="logged-in-page">
+        <h1>Logged In!</h1>
+        <a href='/logout'>click to logout</a>
+    </div>
+    <script>
+        const loadProfileData = async () => {
+            const profile = await fetch("http://localhost:4000/profile").then(r => r.json());
+            const profileHtml = document.createElement("p");
+            profileHtml.innerText = JSON.stringify(profile);
+            document.querySelector(".logged-in-page").append(profileHtml);
+        }
+
+        loadProfileData();
+    </script>
+</body>
+
+</html>
