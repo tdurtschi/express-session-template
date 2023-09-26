@@ -1,22 +1,28 @@
 const express = require("express");
 const cookieParser = require("cookie-parser");
-const sessions = require("express-session");
+const session = require("express-session");
+const { Pool } = require("pg");
+require("dotenv").config();
 
-const app = express();
 const PORT = 4000;
 const THIRTY_MINUTES = 1000 * 30 * 60;
 
 // REQUIRED ENVIRONNMENT VARIABLES
+const EXPRESS_SESSIONS_SECRET = process.env.EXPRESS_SESSIONS_SECRET;
 const OIDC_CLIENT_ID = process.env.OIDC_CLIENT_ID;
 const OIDC_CLIENT_SECRET = process.env.OIDC_CLIENT_SECRET;
-const EXPRESS_SESSIONS_SECRET = process.env.EXPRESS_SESSIONS_SECRET;
 const OIDC_REDIRECT_URL = process.env.OIDC_REDIRECT_URL;
 const OIDC_ACCESS_TOKEN_URL = process.env.OIDC_ACCESS_TOKEN_URL;
 const OIDC_PROFILE_URL = process.env.OIDC_PROFILE_URL;
 const OIDC_AUTHORIZATION_URL = process.env.OIDC_AUTHORIZATION_URL;
 
+const app = express();
+
 app.use(
-  sessions({
+  session({
+    store: new (require("connect-pg-simple")(session))({
+      pool: new Pool(),
+    }),
     secret: EXPRESS_SESSIONS_SECRET,
     saveUninitialized: true,
     cookie: { maxAge: THIRTY_MINUTES },
