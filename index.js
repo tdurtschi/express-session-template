@@ -4,7 +4,7 @@ const session = require("express-session");
 const { Pool } = require("pg");
 require("dotenv").config();
 
-const PORT = 4000;
+const PORT = process.env.PORT || 4000;
 const THIRTY_MINUTES = 1000 * 30 * 60;
 
 // REQUIRED ENVIRONNMENT VARIABLES
@@ -89,4 +89,4 @@ app.get("/logout", (req, res) => {
   res.redirect("/");
 });
 
-app.listen(PORT, () => console.log(`Server Running at port ${PORT}`));
+app.listen(PORT, () => console.log(`Server Running at port http://localhost:${PORT}`));
