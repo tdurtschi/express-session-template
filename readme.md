@@ -8,6 +8,7 @@ Thanks to https://www.section.io/engineering-education/session-management-in-nod
 
 - Node v16 or above.
 - `.env` file in project directory (see `.env.example` for an example).
+  - If you need OIDC credentials, see: https://learn.microsoft.com/en-us/linkedin/shared/authentication/client-credentials-flow
 
 ## Available commands
 
